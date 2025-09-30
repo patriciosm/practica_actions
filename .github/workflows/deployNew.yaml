@@ -50,3 +50,17 @@ jobs:
 
       - name: Working dir after actions
         run: ls -al
+  
+  fourth_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generar archivo
+        run: |
+          echo "Archivo prueba, Hola" >> test.log
+
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: archivo-test
+          path: test.log
