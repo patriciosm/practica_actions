@@ -9,6 +9,9 @@ jobs:
     env:
       NAME: Simoncio
 
+    outputs:
+      salida: ${{ steps.step_1.outputs.my_variable }}
+
     steps:
       - name: Working dir
         id: step_1
@@ -25,9 +28,15 @@ jobs:
     needs: first_job
     runs-on: ubuntu-latest
 
+    env:
+      SALIDA: ${{ needs.first_job.outputs.salida }}
+
     steps:
       - name: Hola Mundo
         run: echo "Hola Mundo ${{ github.ref }}"
+
+      - name: Hola Mundo 2
+        run: echo "$SALIDA"
 
   third_job:
     runs-on: ubuntu-latest
