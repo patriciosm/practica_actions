@@ -10,6 +10,13 @@ jobs:
       NAME: Simoncio
 
     steps:
+      - name: Working dir
+        id: step_1
+        run: echo "my_variable=Hola Mundo" >> $GITHUB_OUTPUT
+      
+      - name: Obtener mensaje
+        run echo "${{ steps.step_1.outputs.my_variable }}"
+
       - name: Hola Mundo
         run: echo "Hola Mundo $NAME"
   
@@ -21,3 +28,16 @@ jobs:
     steps:
       - name: Hola Mundo
         run: echo "Hola Mundo ${{ github.ref }}"
+
+    third_job:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Working dir
+          run: ls -al
+
+        - name: Action
+          uses: actions/checkout@v4
+
+        - name: Working dir after actions
+          run: ls -al
